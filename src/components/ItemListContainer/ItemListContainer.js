@@ -1,9 +1,28 @@
-import './ItemListContainer.css'
+import { useEffect, useState } from 'react';
+import { getProducts } from '../../helpers/getProducts';
+import { ItemList } from '../ItemList/ItemList';
+import './ItemListContainer.css';
+
 export const ItemListContainer = ({ greeting }) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState([false]);
+
+  useEffect(() => {
+    setLoading(true);
+
+    getProducts().then((response) => {
+      setProducts(response);
+    }).catch((error) => {
+      console.log(error);
+    }).finally(() => {
+      setLoading(false);
+    });
+
+  }, []);
+
   return (
-    <section className='item-list-container'>
-      <h2>{greeting}</h2>
-      <hr />
-    </section>
+    <>
+      {loading ? <h2>Loading</h2> : <ItemList products={products} />}
+    </>
   )
 }
