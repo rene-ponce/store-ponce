@@ -1,4 +1,26 @@
-export const ItemDetail = ({id, name, description, price, thumb, category}) => {
+import { useContext, useState } from "react"
+import { Link } from "react-router-dom";
+import { CartContext } from "../../context/CartContext";
+import { Counter } from "../Counter/Counter"
+
+export const ItemDetail = ({id, name, description, price, thumb, category, stock}) => {
+
+  const [quantity, setQuantity] = useState(0);
+  const {existInCart, addToCart} = useContext(CartContext);
+
+  const handleAddCart = () => {
+    if (quantity === 0) {
+      return;
+    }
+
+    if (!existInCart(id)) {
+      const item = {
+        id, name, price, stock, quantity
+      }
+      addToCart(item);
+    }
+  }
+
   return (
     <div className="row">
       <h3>{name}</h3>
@@ -10,21 +32,16 @@ export const ItemDetail = ({id, name, description, price, thumb, category}) => {
         <h3>
           <p>Precio: ${price}</p>
         </h3>
-        <div className="input-group">
-          <span className="input-group-btn">
-            <button type="button" className="btn btn-danger btn-number"  data-type="minus" data-field="quant[2]">
-              <i class="bi bi-dash-lg"></i>
-            </button>
-          </span>
-          <input type="text" name="quant[2]" className="form-control input-number" min="1" max="100" />
-          <span class="input-group-btn">
-            <button type="button" className="btn btn-success btn-number" data-type="plus" data-field="quant[2]">
-              <i class="bi bi-plus-lg"></i>
-            </button>
-          </span>
-        </div>
-        <br />
-        <button className="btn btn-success btn-lg">Agregar al carrito</button>
+        {
+          existInCart(id)
+          ? <Link to='/cart' className="btn btn-success my-3">Finalizar pedido</Link>
+          :
+            <>
+              <Counter max={stock} counter={quantity} setCounter={setQuantity} />
+              <br />
+              <button type="button" className="btn btn-success btn-lg" onClick={handleAddCart}>Agregar al carrito</button>
+            </>
+        }
       </div>
     </div>
   )

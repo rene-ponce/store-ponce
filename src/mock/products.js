@@ -5,7 +5,8 @@ export const products = [
     description: 'Description 1',
     price: 1250,
     thumb: 'https://via.placeholder.com/150',
-    category: 'tenis'
+    category: 'tenis',
+    stock: 20
   },
   {
     id: 2,
@@ -13,7 +14,8 @@ export const products = [
     description: 'Description 2',
     price: 2250,
     thumb: 'https://via.placeholder.com/150',
-    category: 'tenis'
+    category: 'tenis',
+    stock: 15
   },
   {
     id: 3,
@@ -21,7 +23,8 @@ export const products = [
     description: 'Description 3',
     price: 3250,
     thumb: 'https://via.placeholder.com/150',
-    category: 'playeras'
+    category: 'playeras',
+    stock: 5
   },
   {
     id: 4,
@@ -29,7 +32,8 @@ export const products = [
     description: 'Description 4',
     price: 4250,
     thumb: 'https://via.placeholder.com/150',
-    category: 'playeras'
+    category: 'playeras',
+    stock: 30
   },
   {
     id: 5,
@@ -37,7 +41,8 @@ export const products = [
     description: 'Description 5',
     price: 5250,
     thumb: 'https://via.placeholder.com/150',
-    category: 'short'
+    category: 'short',
+    stock: 10
   },
   {
     id: 6,
@@ -45,7 +50,8 @@ export const products = [
     description: 'Description 6',
     price: 6250,
     thumb: 'https://via.placeholder.com/150',
-    category: 'short'
+    category: 'short',
+    stock: 25
   },
   {
     id: 7,
@@ -53,7 +59,8 @@ export const products = [
     description: 'Description 7',
     price: 7250,
     thumb: 'https://via.placeholder.com/150',
-    category: 'gorras'
+    category: 'gorras',
+    stock: 35
   },
   {
     id: 8,
@@ -61,6 +68,7 @@ export const products = [
     description: 'Description 8',
     price: 8250,
     thumb: 'https://via.placeholder.com/150',
-    category: 'gorras'
+    category: 'gorras',
+    stock: 100
   }
 ];
