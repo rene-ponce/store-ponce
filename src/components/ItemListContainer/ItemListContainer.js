@@ -1,5 +1,7 @@
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { db } from '../../firebase/config';
 import { getProducts } from '../../helpers/getProducts';
 import { ItemList } from '../ItemList/ItemList';
 import './ItemListContainer.css';
@@ -12,18 +14,22 @@ export const ItemListContainer = ({ greeting }) => {
 
   useEffect(() => {
     setLoading(true);
-    
-    getProducts().then((response) => {
-      if (categoryID) {
-        setProducts(response.filter((el) => el.category === categoryID));
-      } else {
-        setProducts(response);
-      }
-    }).catch((error) => {
-      console.log(error);
-    }).finally(() => {
-      setLoading(false);
-    });
+
+    // Firebase
+    const productsReference = collection(db, 'products')
+    const queryStr = categoryID ? query(productsReference, where("category", "==", categoryID)) : productsReference;
+    getDocs(queryStr)
+      .then(res => {
+        setProducts(res.docs.map((doc) => {
+          return {
+            id: doc.id,
+          ...doc.data()
+          }
+        }))
+      })
+      .finally(() => {
+        setLoading(false);
+      });
 
   }, [categoryID]);
 
