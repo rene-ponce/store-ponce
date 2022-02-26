@@ -3,12 +3,14 @@ import { useContext, useState } from "react"
 import { Link, Navigate } from "react-router-dom";
 import { CartContext } from "../../context/CartContext"
 import { db } from "../../firebase/config";
+import { validate } from "../../helpers/validate";
+import { OrderCompleted } from "./OrderCompleted";
 
 export const Checkout = () => {
 
   const {cart, total, emptyCart} = useContext(CartContext);
 
-  const [orderId, setOrderId] = useState();
+  const [orderId, setOrderId] = useState(null);
 
   const [values, setValues] = useState({
     name: '',
@@ -65,18 +67,11 @@ export const Checkout = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    createOrder()
+    validate(values) && createOrder();
   }
 
   if (orderId) {
-    return (
-      <>
-        <h2>Compra generada</h2>
-        <hr />
-        <h3>Tu número de orden es: {orderId}</h3>
-        <Link to='/' className='btn btn-primary'>Seguir comprando</Link>
-      </>
-    )
+    return <OrderCompleted order={orderId} />
   }
 
   if (cart.length === 0) {
