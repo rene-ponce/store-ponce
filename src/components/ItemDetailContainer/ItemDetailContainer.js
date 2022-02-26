@@ -7,9 +7,9 @@ import { ItemDetail } from "../ItemDetail/ItemDetail";
 export const ItemDetailContainer = () => {
   const [loading, setLoading] = useState(false);
   const [item, setItem] = useState(null);
+  const {itemID} = useParams();
 
   useEffect(() => {
-    const {itemID} = useParams();
     setLoading(true);
     
     // Firebase
@@ -21,14 +21,6 @@ export const ItemDetailContainer = () => {
       .finally(() => {
         setLoading(false);
       })
-
-    // getProducts()
-    //   .then((res) => {
-    //     setItem(res.find((el) => el.id === Number(itemID)));
-    //   })
-    //   .finally(() => {
-    //     setLoading(false);
-    //   })
   }, [])
 
   return (
